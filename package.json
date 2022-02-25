@@ -13,5 +13,6 @@
   "bugs": {
     "url": "https://github.com/FinOCE/Frontier/issues"
   },
-  "homepage": "https://github.com/FinOCE/Frontier#readme"
+  "homepage": "https://github.com/FinOCE/Frontier#readme",
+  "dependencies": {}
 }

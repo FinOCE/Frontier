@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
+    "serve": "echo '(1/4) Building Next.js project' && next build && echo '(2/4) Exporting Next.js project' && next export && echo '(3/4) Compiling API' && cd api && npx tsc && echo '(4/4) Starting SWA Emulator' && cd .. && swa start out --api-location api",
     "start": "next start",
     "lint": "next lint"
   },

@@ -1,4 +1,8 @@
-export default function useTemplate(): string | null {
+export default function useTemplate(localSlug?: string): string | null {
+  // Allow local development
+  if (typeof window !== 'undefined' && window.location.href.startsWith('http://localhost'))
+    return localSlug ?? ''
+
   // Handle server-side
   let href = typeof window !== 'undefined' ? window.location.href : undefined
   if (!href) return null

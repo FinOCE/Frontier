@@ -2,7 +2,7 @@
   "routes": [
     {
       "route": "/posts/*",
-      "rewrite": "/posts/template"
+      "rewrite": "/article"
     }
   ],
   "responseOverrides": {

@@ -10,12 +10,12 @@ const PostTemplate: NextPage = () => {
   let [post, setPost] = useState()
 
   const fetchData = useCallback(() => {
-    fetch(`https://orange-grass-0fe38e810.1.azurestaticapps.net/api/posts/${slug}`, {
+    fetch(`/api/posts/${slug}`, {
       method: 'GET'
     }).then(res => res.json()).then((res: any) => {
       setPost(res.data[0])
     }).catch(err => {
-      console.log('An error occurred attempting to cetch the post')
+      console.log('An error occurred attempting to fetch the post')
     })
   }, [])
 
@@ -25,7 +25,7 @@ const PostTemplate: NextPage = () => {
 
   return (
     <div>
-      <code><pre>{JSON.stringify(post, null, 4)}</pre></code>
+      <code><pre>{JSON.stringify(post, null, 4) ?? 'Nothing to display'}</pre></code>
     </div>
   )
 }

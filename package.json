@@ -1,24 +1,17 @@
 {
   "name": "frontier",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build && next export",
-    "start": "next start",
-    "lint": "next lint"
+    "web": "cd web && npm run dev",
+    "api": "cd api && func start"
   },
-  "dependencies": {
-    "next": "12.1.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FinOCE/Frontier.git"
   },
-  "devDependencies": {
-    "@types/node": "17.0.21",
-    "@types/react": "^17.0.39",
-    "eslint": "8.9.0",
-    "eslint-config-next": "12.1.0",
-    "sass": "^1.49.9",
-    "typescript": "4.5.5"
-  }
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FinOCE/Frontier/issues"
+  },
+  "homepage": "https://github.com/FinOCE/Frontier#readme"
 }

@@ -1,3 +1,7 @@
 # Frontier
 
-This is the web app for [@FrontierRL](https://twitter.com/FrontierRL).
+Frontier is an esports journalism group dedicated to writing high quality articles across the titles of Rocket League and RL Sideswipe. Beginning in January of 2022, the group has built off the passion and drive displayed by teams for both titles and their respective competitive scenes, passion which they hope to share with others to create an inclusive, prosperous, and thriving community.
+
+This repository contains the source code for the Fronter website and API, which is run as a Next.js Azure Web App with an internal Azure Functions project acting as the site's API. The live build for the site can viewed [here](https://orange-grass-0fe38e810.1.azurestaticapps.net/) on the automatically generated static apps domain. The project also uses an Azure Cosmos DB resource using the Core (SQL) API to store all data required for the site to function. These resources have been used because of their effectiveness and affordability, all being run on free plans, making for a pennilees upkeep.
+
+This project was created to offer help to Frontier because I am an avid reader and wanted to be able to support them where I can. Previous to this project, the site was created using Wix, and because I have experience in web development, I took it upon myself to create a new platform for their content which matches the quality of their articles. Frontier themselves can be contacted on their twitter [@FrontierRL](https://twitter.com/FrontierRL).

@@ -14,25 +14,45 @@ const GetPosts: AzureFunction = async (context: Context, req: HttpRequest): Prom
   const container = database.container(containerId)
 
   if (!context.bindingData.slug) {
-    const querySpec = {
-      query: 'SELECT * FROM c'
-    }
-
-    const { resources: items } = await container.items.query(querySpec).fetchAll()
+    // Get all posts
+    const { resources: items } = await container.items
+      .query('SELECT * FROM c ORDER BY c.timestamp DESC')
+      .fetchAll()
 
     context.res = {
       body: items
     }
   } else {
-    const slug = String(context.bindingData.slug).replace(/[^a-z\d\-]/gi, '')
-    const querySpec = {
-      query: `SELECT * FROM c WHERE c.slug = '${slug}'`
-    }
+    // Get the ID of a specific post by the slug
+    const { resources } = await container.items
+      .query({
+        query: `SELECT c.id FROM c WHERE c.slug = @slug`,
+        parameters: [{ name: '@slug', value: context.bindingData.slug }]
+      })
+      .fetchAll()
 
-    const { resources: items } = await container.items.query(querySpec).fetchAll()
+    const id = resources[0]?.id
 
-    context.res = {
-      body: items
+    if (id) {
+      // Update view count and return post data
+      const post = await (
+        await container.item(id, id).patch([
+          {
+            op: 'incr',
+            path: '/views',
+            value: 1
+          }
+        ])
+      ).resource
+
+      context.res = {
+        body: post
+      }
+    } else {
+      // Handle unknown slug
+      context.res = {
+        status: 404
+      }
     }
   }
 }

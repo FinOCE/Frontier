@@ -9,23 +9,27 @@ const PostTemplate: NextPage = () => {
   const slug = useTemplate('template')
   let [post, setPost] = useState<Post>()
   let [loading, setLoading] = useState(true)
+  let [error, setError] = useState(false)
 
   useEffect(() => {
-    fetch(`/api/posts/${slug}`).then(res => res.json()).then((res: Post[]) => {
+    fetch(`/api/posts/${slug}`).then(res => res.json()).then((res: Post) => {
       setLoading(false)
-      if (res?.[0]) setPost(res[0])
+      if (res) setPost(res)
       else throw new Error()
     }).catch(err => {
-      console.log('An error occurred attempting to fetch the post')
-      console.error(err)
+      console.log(err)
+      setLoading(false)
+      setError(true)
     })
-  }, [])
+  }, [slug])
 
   // Render page
   return (
     <div>
       {loading ? (
         <span>Loading...</span>
+      ) : error ? (
+        <span>Post not found</span>
       ) : (
         <code><pre>{JSON.stringify(post, null, 4) ?? '{}'}</pre></code>
       )}

@@ -31,7 +31,10 @@ const PostTemplate: NextPage = () => {
       ) : error ? (
         <span>Post not found</span>
       ) : (
-        <code><pre>{JSON.stringify(post, null, 4) ?? '{}'}</pre></code>
+        <div>
+          <a href="/">Return to home</a>
+          <code><pre>{JSON.stringify(post, null, 4) ?? '{}'}</pre></code>
+        </div>
       )}
     </div>
   )

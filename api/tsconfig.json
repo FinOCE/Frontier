@@ -5,6 +5,18 @@
     "outDir": "dist",
     "rootDir": ".",
     "sourceMap": true,
-    "strict": false
-  }
+    "strict": true,
+    "baseUrl": "./",
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types",
+    ],
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

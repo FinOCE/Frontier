@@ -1,9 +1,14 @@
+import useUser from '@hooks/user'
 import type { NextPage } from 'next'
 import fetch from 'node-fetch'
 import { useEffect, useState } from 'react'
 import { Post } from 'types/Post'
 
 const Home: NextPage = () => {
+  // Get user
+  let [user, jwt] = useUser()
+  const animatedAvatar = user?.avatar?.startsWith('a_') ?? false
+
   // Get articles
   let [posts, setPosts] = useState<Post[]>([])
   let [loading, setLoading] = useState(true)
@@ -24,6 +29,21 @@ const Home: NextPage = () => {
   // Render page
   return (
     <div>
+      <h1>Authentication</h1>
+      {!user ? (
+        <a href="/api/login">Login</a>
+      ) : (
+        <>
+          <img src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${animatedAvatar ? 'gif' : 'png'}`} />
+          <br />
+          Welcome {user.username}#{user.discriminator} ({user.id})
+          <br />
+          You <b>{user.is_writer ? 'ARE' : 'ARE NOT'}</b> a writer
+          <br />
+          <a href="/api/logout">Logout</a>
+        </>
+      )}
+      <h1>Posts</h1>
       {loading ? (
         <span>Loading...</span>
       ) : error ? (

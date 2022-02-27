@@ -103,7 +103,7 @@ const GetPosts: AzureFunction = async (context: Context, req: HttpRequest): Prom
       status: 307,
       headers: {
         location: req.url.split('?')[0].substring(0, req.url.split('?')[0].length - 10),
-        'Set-Cookie': `jwt=${apiToken}; Expires=${expiry}; Domain=${domain}; Path=/; Secure; HttpOnly`
+        'Set-Cookie': `jwt=${apiToken}; Expires=${expiry}; Domain=${domain}; Path=/; Secure`
       }
     }
   } else {

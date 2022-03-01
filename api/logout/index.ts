@@ -18,7 +18,7 @@ const GetPosts: AzureFunction = async (context: Context, req: HttpRequest): Prom
   try {
     if (!req.headers.cookie) throw new Error()
 
-    const apiToken = req.headers.cookie!.split('jwt=')[1].split(';')[0]
+    const apiToken = req.headers.cookie.split('jwt=')[1].split(';')[0]
     const { id } = jwt.verify(apiToken, process.env.JWT_SECRET!) as { id: string }
 
     await container.item(id, id).patch([
@@ -27,7 +27,9 @@ const GetPosts: AzureFunction = async (context: Context, req: HttpRequest): Prom
         path: '/refresh_token'
       }
     ])
-  } catch (e) {}
+  } catch (e) {
+    // Cookie does not exist and therefore the failed update doesn't matter
+  }
 
   // Remove cookie from user
   const domain = req.url.replace(/(http\:\/\/)|(https\:\/\/)|(\:\d{1,5})|(\/(\w|\W)+)|(\/)/g, '')
@@ -36,7 +38,7 @@ const GetPosts: AzureFunction = async (context: Context, req: HttpRequest): Prom
   context.res = {
     status: 307,
     headers: {
-      location: req.url.split('?')[0].substring(0, req.url.split('?')[0].length - 10),
+      location: req.url.split('?')[0].substring(0, req.url.split('?')[0].length - 11),
       'Set-Cookie': `jwt=deleted; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Domain=${domain}; Path=/; Secure`
     }
   }

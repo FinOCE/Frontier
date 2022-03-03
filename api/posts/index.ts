@@ -24,14 +24,14 @@ const GetPosts: AzureFunction = async (context: Context, req: HttpRequest): Prom
     }
   } else {
     // Get the ID of a specific post by the slug
-    const { resources } = await container.items
+    const { resources: items } = await container.items
       .query({
         query: `SELECT c.id FROM c WHERE c.slug = @slug`,
         parameters: [{ name: '@slug', value: context.bindingData.slug }]
       })
       .fetchAll()
 
-    const id = resources[0]?.id
+    const id = items[0]?.id
 
     if (id) {
       // Update view count and return post data

@@ -2,7 +2,7 @@ import useUser from '@hooks/user'
 import type { NextPage } from 'next'
 import fetch from 'node-fetch'
 import { useEffect, useState } from 'react'
-import { Post } from 'types/Post'
+import { Post } from 'api/types/Post'
 
 const Home: NextPage = () => {
   // Get user

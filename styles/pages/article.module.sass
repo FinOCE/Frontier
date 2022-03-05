@@ -3,6 +3,8 @@
 #wrapper
   display: grid
   grid-template-areas: 'nav nav' 'article links'
+  grid-template-columns: 1fr 250px
+  gap: 0 20px
   width: 80vw
   max-width: 111vh
 
@@ -49,3 +51,9 @@
 
 #links
   grid-area: links
+  padding-top: 16px
+
+  #heading
+    font-family: $titlefont
+    font-size: 1.5em
+    font-weight: bold

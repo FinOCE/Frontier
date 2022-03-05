@@ -9,6 +9,7 @@ import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { faLink } from '@fortawesome/free-solid-svg-icons'
+import Stack from '@components/article/Stack'
 
 const PostTemplate: NextPage = () => {
   // Get article from slug
@@ -63,7 +64,10 @@ const PostTemplate: NextPage = () => {
               </div>
               <p>{post.content}</p>
             </article>
-            <div id={styles.links}>{/* TODO: Add component with other posts */}</div>
+            <div id={styles.links}>
+              <span id={styles.heading}>Recent Posts</span>
+              <Stack exclude={post.slug} />
+            </div>
           </div>
         </Page>
       )}

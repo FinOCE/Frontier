@@ -1,0 +1,49 @@
+@import '../theme'
+
+.stack
+  display: flex
+  flex-direction: column
+  gap: 10px
+  margin: 10px 0
+
+  hr
+    border: 1px solid darken($offwhite, 5%)
+    border-radius: 1px
+    width: 100%
+
+.item
+  color: $grey
+  transition: color 0.2s ease
+
+  &:hover
+    color: $blue
+
+  span:nth-of-type(2)
+    font-size: 13px
+
+.itemskeleton
+  &::before
+    content: ''
+    display: inline-block
+    width: 80%
+    height: 20px
+    border-radius: 100px
+    background: darken($offwhite, 5%)
+    animation: flicker 1s ease infinite
+
+  &::after
+    content: ''
+    display: inline-block
+    width: 60%
+    height: 13px
+    border-radius: 100px
+    background: darken($offwhite, 5%)
+    animation: flicker 1s ease infinite
+
+  @keyframes flicker
+    0%
+      background: darken($offwhite, 5%)
+    50%
+      background: darken($offwhite, 10%)
+    100%
+      background: darken($offwhite, 5%)

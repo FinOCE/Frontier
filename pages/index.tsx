@@ -53,10 +53,10 @@ const Home: NextPage = () => {
           {posts.map(post => (
             <>
               <a href={`/posts/${post.slug}`} key={post.id}>{post.title}</a>
-              <br />
+              <br /><br />
             </>
           ))}
-          <code><pre>{JSON.stringify(posts, null, 4) ?? '{}'}</pre></code>
+          {/* <code><pre>{JSON.stringify(posts, null, 4) ?? '{}'}</pre></code> */}
         </div>
       )}
     </div>

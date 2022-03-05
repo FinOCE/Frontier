@@ -28,22 +28,14 @@ export default function Stack(props: StackProps) {
     <div className={styles.stack}>
       {loading ? (
         <>
-          <hr />
           <div className={styles.itemskeleton} />
-          <hr />
           <div className={styles.itemskeleton} />
-          <hr />
           <div className={styles.itemskeleton} />
-          <hr />
         </>
       ) : (
         <>
-          <hr />
           {posts.filter(post => post.slug === props.exclude).map(post => ( // TODO: Set to !== so it hides different slugs
-            <>
-              <Item {...post} />
-              <hr />
-            </>
+            <Item {...post} />
           ))}
         </>
       )}

@@ -11,6 +11,8 @@ import { faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { faCheck, faLink } from '@fortawesome/free-solid-svg-icons'
 import Stack from '@components/article/Stack'
 import copy from 'copy-to-clipboard'
+import Header from '@components/Header'
+import Footer from '@components/Footer'
 
 const PostTemplate: NextPage = () => {
   // Get article from slug
@@ -52,6 +54,7 @@ const PostTemplate: NextPage = () => {
         <span>Post not found</span>
       ) : (
         <Page>
+          <Header />
           <div id={styles.wrapper}>
             <div id={styles.nav}>
               <a href="/">Return</a>
@@ -81,6 +84,7 @@ const PostTemplate: NextPage = () => {
               <Stack exclude={post.slug} />
             </div>
           </div>
+          <Footer />
         </Page>
       )}
     </div>

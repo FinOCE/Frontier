@@ -1,4 +1,19 @@
+@import './theme'
+
 html, body
   padding: 0
   margin: 0
-  font-family: 'Segoe UI'
+  font-family: $bodyfont
+
+a
+  text-decoration: none
+  color: $blue
+  transition: color 0.2s ease
+  font-weight: bold
+  cursor: pointer
+
+  &:hover
+    color: lighten($blue, 10%)
+
+h1, h2, h3, h4, h5, h6
+  font-family: $titlefont

@@ -8,8 +8,9 @@ import styles from '@styles/pages/article.module.sass'
 import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons'
-import { faLink } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faLink } from '@fortawesome/free-solid-svg-icons'
 import Stack from '@components/article/Stack'
+import copy from 'copy-to-clipboard'
 
 const PostTemplate: NextPage = () => {
   // Get article from slug
@@ -18,17 +19,29 @@ const PostTemplate: NextPage = () => {
   let [loading, setLoading] = useState(true)
   let [error, setError] = useState(false)
 
+  let [href, setHref] = useState<string>()
+
   useEffect(() => {
     fetch(`/api/posts/${slug}`).then(res => res.json()).then((res: Post) => {
       setLoading(false)
-      if (res) setPost(res)
-      else throw new Error()
+      if (res) {
+        setPost(res)
+        setHref(`${window.location.protocol}//${window.location.host}/posts/${res.slug}`)
+      } else throw new Error()
     }).catch(err => {
       console.log(err)
       setLoading(false)
       setError(true)
     })
   }, [slug])
+
+  let [copied, setCopied] = useState(false)
+
+  function copyToClipboard() {
+    copy(href ?? '')
+    setCopied(true)
+    setTimeout(() => setCopied(false), 1000)
+  }
 
   // Render page
   return (
@@ -51,14 +64,13 @@ const PostTemplate: NextPage = () => {
               {' '}&middot;{' '}
               <span>{post.views} views</span>
               <div id={styles.socials}>
-                {/* TODO: Add locations to anchor tags */}
-                <a>
-                  <FontAwesomeIcon icon={faLink} />
+                <a onClick={copyToClipboard}>
+                  <FontAwesomeIcon icon={!copied ? faLink : faCheck} />
                 </a>
-                <a>
+                <a href={`https://twitter.com/intent/tweet?url=${href}`} target="_blank">
                   <FontAwesomeIcon icon={faTwitter} />
                 </a>
-                <a>
+                <a href={`https://www.facebook.com/sharer/sharer.php?u=${href}`} target="_blank">
                   <FontAwesomeIcon icon={faFacebook} />
                 </a>
               </div>

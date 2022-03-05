@@ -18,7 +18,7 @@ export default function Item(props: Post) {
         <span>{props.title}</span>
         <br />
         <span>
-          Posted {moment.duration(moment().unix() / 1000 - props.timestamp).humanize(true)}
+          Posted {moment.duration(props.timestamp - moment().unix(), 's').humanize(true)}
           {' '}&middot;{' '}
           <FontAwesomeIcon icon={faEye} /> {props.views}
         </span>

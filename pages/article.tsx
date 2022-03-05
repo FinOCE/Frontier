@@ -16,8 +16,9 @@ import Footer from '@components/Footer'
 
 const PostTemplate: NextPage = () => {
   // Get article from slug
-  const slug = useTemplate('template')
+  const slug = useTemplate('sideswipe-and-the-curse-of-alpha-grand-champion')
   let [post, setPost] = useState<Post>()
+  let [content, setContent] = useState<string>('')
   let [loading, setLoading] = useState(true)
   let [error, setError] = useState(false)
 
@@ -29,6 +30,18 @@ const PostTemplate: NextPage = () => {
       if (res) {
         setPost(res)
         setHref(`${window.location.protocol}//${window.location.host}/posts/${res.slug}`)
+
+        // Format content (TEMPORARY)
+        let c = res.content
+        c = `<p>${c.replaceAll('\n', '</p><p>')}</p>`
+
+        let opened = false
+        while (c.includes('**')) {
+          c = c.replace('**', opened ? '</b>' : '<b>')
+          opened = !opened
+        }
+
+        setContent(c)
       } else throw new Error()
     }).catch(err => {
       console.log(err)
@@ -63,7 +76,7 @@ const PostTemplate: NextPage = () => {
               <h1>{post.title}</h1>
               <span>By {post.author}</span>
               <br />
-              <span>Posted {moment.duration(moment().unix() / 1000 - post.timestamp).humanize(true)}</span>
+              <span>Posted {moment.duration(post.timestamp - moment().unix(), 's').humanize(true)}</span>
               {' '}&middot;{' '}
               <span>{post.views} views</span>
               <div id={styles.socials}>
@@ -77,7 +90,7 @@ const PostTemplate: NextPage = () => {
                   <FontAwesomeIcon icon={faFacebook} />
                 </a>
               </div>
-              <p>{post.content}</p>
+              <div dangerouslySetInnerHTML={{__html: content}} />
             </article>
             <div id={styles.links}>
               <span id={styles.heading}>Recent Posts</span>

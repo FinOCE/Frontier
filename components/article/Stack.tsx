@@ -15,7 +15,7 @@ export default function Stack(props: StackProps) {
   useEffect(() => {
     fetch(`/api/posts`).then(res => res.json()).then((res: Post[]) => {
       setLoading(false)
-      if (res) setPosts(res.concat(res).concat(res)) // TODO: Remove duplicate concatenation used for filling
+      if (res) setPosts(res)
       else throw new Error()
     }).catch(err => {
       console.log(err)
@@ -33,11 +33,7 @@ export default function Stack(props: StackProps) {
           <div className={styles.itemskeleton} />
         </>
       ) : (
-        <>
-          {posts.filter(post => post.slug === props.exclude).map(post => ( // TODO: Set to !== so it hides different slugs
-            <Item {...post} />
-          ))}
-        </>
+        posts.filter(post => post.slug !== props.exclude).map(post => <Item {...post} />)
       )}
     </div>
   )

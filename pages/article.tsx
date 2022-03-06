@@ -13,6 +13,7 @@ import Stack from '@components/article/Stack'
 import copy from 'copy-to-clipboard'
 import Header from '@components/Header'
 import Footer from '@components/Footer'
+import { Converter } from 'showdown'
 
 const PostTemplate: NextPage = () => {
   // Get article from slug
@@ -31,17 +32,18 @@ const PostTemplate: NextPage = () => {
         setPost(res)
         setHref(`${window.location.protocol}//${window.location.host}/posts/${res.slug}`)
 
-        // Format content (TEMPORARY)
-        let c = res.content
-        c = `<p>${c.replaceAll('\n', '</p><p>')}</p>`
+        // // Format content (TEMPORARY)
+        // let c = res.content
+        // c = `<p>${c.replaceAll('\n', '</p><p>')}</p>`
 
-        let opened = false
-        while (c.includes('**')) {
-          c = c.replace('**', opened ? '</b>' : '<b>')
-          opened = !opened
-        }
+        // let opened = false
+        // while (c.includes('**')) {
+        //   c = c.replace('**', opened ? '</b>' : '<b>')
+        //   opened = !opened
+        // }
 
-        setContent(c)
+        // setContent(c)
+        setContent(new Converter().makeHtml(res.content))
       } else throw new Error()
     }).catch(err => {
       console.log(err)
